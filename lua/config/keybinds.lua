@@ -1,78 +1,107 @@
 -- KEYBINDS
 vim.g.mapleader = " "
+
+-- N: enter netrw file manager: (<space> + cd)
 vim.keymap.set("n", "<leader>cd", vim.cmd.Ex)
 
-vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv") -- Alt Up/Down in vscode
+
+-- V: move selected lines up and down: (J/K)
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
 
-vim.keymap.set("n", "J", "mzJ`z")       -- Remap joining lines
+
+-- N: remap joining lines: (J/L)
+vim.keymap.set("n", "J", "mzJ` z")
 vim.keymap.set("n", "L", "i<CR><Esc>mz_`z")
-vim.keymap.set("n", "<C-d>", "<C-d>zz") -- Keep cursor in place while moving up/down page
+
+
+-- N: keep cursor in place while moving up/down page: (<ctrl> + d/u)
+vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
-vim.keymap.set("n", "n", "nzzzv")       -- center screen when looping search results
+
+
+-- N: center screen when looping search results: (n/N)
+vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
+
 
 -- paste and don't replace clipboard over deleted text
 vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
--- sometimes in insert mode, control-c doesn't exactly work like escape
+
+-- I: sometimes in insert mode, control-c doesn't exactly work like escape: (<ctrl> + c)
 vim.keymap.set("i", "<C-c>", "<Esc>")
 
--- add binds for Control J/K to scroll thru quickfix list
+
+-- N: add binds for control J/K to scroll thru quickfix list: (<ctrl> + j/k)
 vim.keymap.set("n", "<C-j>", "<cmd>cnext<CR>zz")
 vim.keymap.set("n", "<C-k>", "<cmd>cprev<CR>zz")
 
--- What the heck is Ex mode? prevents accidnetal :Ex
+
+-- N: what the heck is Ex mode? prevents accidnetal ":Ex": (Q)
 vim.keymap.set("n", "Q", "<nop>")
 
+
+-- N: --- :(<space> + j/k)
 vim.keymap.set("n", "<leader>k", "<cmd>lnext<CR>zz")
 vim.keymap.set("n", "<leader>j", "<cmd>lprev<CR>zz")
 
--- getting Alex off my back :)
--- vim.keymap.set("n", "<leader>dg", "<cmd>fastfetch<cr>")
 
--- lint / format php files for LC
+-- N: lint / format php files for LC: (<space> + cc)
 vim.keymap.set("n", "<leader>cc", "<cmd>!php-cs-fixer fix % --using-cache=no<cr>")
 
--- Replace all instances of whatever is under cursor (on line)
+
+-- N: replace all instances of whatever is under cursor (on line): (<space> + s)
 vim.keymap.set("n", "<leader>s", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
 
--- make file executable
+
+-- N: make file executable: (<space> + x)
 -- vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
--- yank into clipboard even if on ssh
+
+-- NV: yank into clipboard even if on ssh: (<space> + y)
 vim.keymap.set("n", "<leader>y", "<Plug>OSCYankOperator")
 vim.keymap.set("v", "<leader>y", "<Plug>OSCYankVisual")
 
--- reload without exiting vim
+
+-- N: reload without exiting vim: (<space> + rl)
 vim.keymap.set("n", "<leader>rl", "<cmd>source ~/.config/nvim/init.lua<cr>")
 
+
+-- N: --- : (<space> + u)
 vim.keymap.set("n", "<leader>u", vim.cmd.UndotreeToggle)
 
--- Quickfix list stuff
+
+-- N: quickfix list stuff: (<space> + cl / co / cn / cp / li)
 vim.keymap.set("n", "<leader>cl", ":cclose<CR>", { silent = true })
 vim.keymap.set("n", "<leader>co", ":copen<CR>", { silent = true })
 vim.keymap.set("n", "<leader>cn", ":cnext<CR>zz")
 vim.keymap.set("n", "<leader>cp", ":cprev<CR>zz")
 vim.keymap.set("n", "<leader>li", ":checkhealth vim.lsp<CR>", { desc = "LSP Info" })
 
--- my stuff
--- clear search highlights
+
+-- N: clear search highlights: (<ctrl> + l)
 vim.keymap.set("n", "<C-l>", ":noh<CR><C-l>", { noremap = true, silent = true })
--- paste bellow
+
+
+-- N: paste bellow: (<space> + p)
 vim.keymap.set("n", "<leader>p", "o<esc>Pk<CR>", { noremap = true, silent = true })
 
--- Select all
+
+-- N: select all: (<ctrl> + a)
 vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true })
 
--- Access terminal
+
+-- N: access terminal: (<space> + `)
 vim.keymap.set("n", "<leader>`", ":<C-u>term<CR>i", { noremap = true, silent = true })
 
--- Copy to clipboard
--- vim.keymap.set("v", "<leader>y", '"+y', { noremap = true, silent = true })
 
--- Auto-closing brackets and quotes
+-- V: copy to clipboard: (<space> + y)
+vim.keymap.set("v", "<leader>y", '"+y', { noremap = true, silent = true })
+
+
+-- I: auto-closing brackets and quotes
 vim.keymap.set("i", '"', '""<Left>')
 vim.keymap.set("i", "'", "''<Left>")
 vim.keymap.set("i", "`", "``<Left>")
@@ -82,25 +111,27 @@ vim.keymap.set("i", "{", "{}<Left>")
 vim.api.nvim_set_keymap("i", "{<CR>", "{<CR>}<Esc>O", { noremap = true, silent = true })
 vim.api.nvim_set_keymap("i", "{;<CR>", "{<CR>};<Esc>O", { noremap = true, silent = true })
 
--- Indent selected lines and keep selection
+
+-- V: indent selected lines and keep selection: (<tab>)
 vim.keymap.set("v", "<Tab>", ">gv", { desc = "Indent visual selection" })
--- Outdent selected lines and keep selection
+-- V: Outdent selected lines and keep selection: (<shift> + <tab>)
 vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "Outdent visual selection" })
 
--- surround text in visual mode
 
--- Parentheses
+-- V: visual (surround text in visual mode)
+-- parentheses
 vim.keymap.set("v", "(", "<esc>`>a)<esc>`<i(<esc>gv", { remap = false })
--- Curly braces
+-- curly braces
 vim.keymap.set("v", "{", "<esc>`>a}<esc>`<i{<esc>gv", { remap = false })
--- Square brackets
+-- square brackets
 vim.keymap.set("v", "[", "<esc>`>a]<esc>`<i[<esc>gv", { remap = false })
--- Double quotes
+-- double quotes
 vim.keymap.set("v", '"', '<esc>`>a"<esc>`<i"<esc>gv', { remap = false })
--- Single quotes
+-- single quotes
 vim.keymap.set("v", "'", "<esc>`>a'<esc>`<i'<esc>gv", { remap = false })
 
--- EXIT and SAVE
+
+-- EXIT and SAVE (CAPS): (W, Q, Q!)
 vim.api.nvim_create_user_command("W", "w", { nargs = 0 })
 vim.api.nvim_create_user_command("Q", "q", { nargs = 0 })
 
