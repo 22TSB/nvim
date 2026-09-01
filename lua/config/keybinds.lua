@@ -1,4 +1,5 @@
 -- KEYBINDS
+local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "
 
 -- N: enter netrw file manager: (<space> + cd)
@@ -20,14 +21,23 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 
--- N: center screen when looping search results: (n/N)
-vim.keymap.set("n", "n", "nzzzv")
+-- N: center screen when looping search results "/text": (n/N)
+vim.keymap.set("n", "n", "nzzzv")       
 vim.keymap.set("n", "N", "Nzzzv")
 
 
--- paste and don't replace clipboard over deleted text
+-- clipboard settings
+-- V: paste and don't replace clipboard over deleted text
 vim.keymap.set("x", "<leader>p", [["_dP]])
+vim.keymap.set("v", "p", '"_dp', opts)
+
+
+-- NV: Delete and don't yank to register 
 vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
+
+
+-- N: Prevents deleted characters from copying to clipboard
+vim.keymap.set("n", "x", '"_x"', opts)
 
 
 -- I: sometimes in insert mode, control-c doesn't exactly work like escape: (<ctrl> + c)
@@ -53,7 +63,11 @@ vim.keymap.set("n", "<leader>cc", "<cmd>!php-cs-fixer fix % --using-cache=no<cr>
 
 
 -- N: replace all instances of whatever is under cursor (on line): (<space> + s)
-vim.keymap.set("n", "<leader>s", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
+-- vim.keymap.set("n", "<leader>s", [[:s/\<<C-r><C-w>\>//gI<Left><Left><Left>]])
+
+
+-- N: Replace the word cursor is on globally: (<space> + s)
+vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Replace word cursor is on globally" })
 
 
 -- N: make file executable: (<space> + x)
@@ -82,40 +96,45 @@ vim.keymap.set("n", "<leader>li", ":checkhealth vim.lsp<CR>", { desc = "LSP Info
 
 
 -- N: clear search highlights: (<ctrl> + l)
-vim.keymap.set("n", "<C-l>", ":noh<CR><C-l>", { noremap = true, silent = true })
-
+vim.keymap.set("n", "<C-l>", ":noh<CR><C-l>", opts)
+vim.keymap.set("n", "<C-c>", ":nohl<CR>", { desc = "Clear search hl", silent = true })
 
 -- N: paste bellow: (<space> + p)
-vim.keymap.set("n", "<leader>p", "o<esc>Pk<CR>", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>p", "o<esc>Pk<CR>", opts)
 
 
 -- N: select all: (<ctrl> + a)
-vim.keymap.set("n", "<C-a>", "ggVG", { noremap = true, silent = true })
+vim.keymap.set("n", "<C-a>", "ggVG", opts)
 
 
 -- N: access terminal: (<space> + `)
-vim.keymap.set("n", "<leader>`", ":<C-u>term<CR>i", { noremap = true, silent = true })
+vim.keymap.set("n", "<leader>`", ":<C-u>term<CR>i", opts)
 
 
 -- V: copy to clipboard: (<space> + y)
-vim.keymap.set("v", "<leader>y", '"+y', { noremap = true, silent = true })
+vim.keymap.set("v", "<leader>y", '"+y', opts)
 
 
 -- I: auto-closing brackets and quotes
-vim.keymap.set("i", '"', '""<Left>')
-vim.keymap.set("i", "'", "''<Left>")
-vim.keymap.set("i", "`", "``<Left>")
-vim.keymap.set("i", "(", "()<Left>")
-vim.keymap.set("i", "[", "[]<Left>")
-vim.keymap.set("i", "{", "{}<Left>")
-vim.api.nvim_set_keymap("i", "{<CR>", "{<CR>}<Esc>O", { noremap = true, silent = true })
-vim.api.nvim_set_keymap("i", "{;<CR>", "{<CR>};<Esc>O", { noremap = true, silent = true })
+-- vim.keymap.set("i", '"', '""<Left>')
+-- vim.keymap.set("i", "'", "''<Left>")
+-- vim.keymap.set("i", "`", "``<Left>")
+-- vim.keymap.set("i", "(", "()<Left>")
+-- vim.keymap.set("i", "[", "[]<Left>")
+-- vim.keymap.set("i", "{", "{}<Left>")
+-- vim.api.nvim_set_keymap("i", "{<CR>", "{<CR>}<Esc>O", opts)
 
 
 -- V: indent selected lines and keep selection: (<tab>)
 vim.keymap.set("v", "<Tab>", ">gv", { desc = "Indent visual selection" })
 -- V: Outdent selected lines and keep selection: (<shift> + <tab>)
 vim.keymap.set("v", "<S-Tab>", "<gv", { desc = "Outdent visual selection" })
+
+
+-- V: indent selected lines and keep selection: (<)
+vim.keymap.set("v", "<", "<gv", opts)
+-- V: Outdent selected lines and keep selection: (>)
+vim.keymap.set("v", ">", ">gv", opts)
 
 
 -- V: visual (surround text in visual mode)
@@ -138,3 +157,14 @@ vim.api.nvim_create_user_command("Q", "q", { nargs = 0 })
 vim.api.nvim_create_user_command("Q", function(opts)
     vim.cmd("q" .. (opts.bang and "!" or ""))
 end, { bang = true })
+
+
+-- vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+
+
+-- N: Copy filepath to the clipboard: (<space> + fp)
+vim.keymap.set("n", "<leader>fp", function()
+    local filePath = vim.fn.expand("%:~")
+    vim.fn.setreg("+", filePath)
+    print("File path copied to clipboard: " .. filePath)
+end, { desc = "Copy file path to clipboard" })
