@@ -23,8 +23,8 @@ return {
 
 		-- opens parent dir over current active window
 		vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-		vim.keymap.set("n", "<leader>ff", "<CMD>Oil<CR>", { desc = "Open parent directory" })
-		vim.keymap.set("n", "<leader>pf", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+		vim.keymap.set("n", "<leader>cd", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+
 		-- open parent dir in float window
 		vim.keymap.set("n", "<leader>-", require("oil").toggle_float)
 

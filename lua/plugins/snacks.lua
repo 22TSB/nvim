@@ -137,7 +137,7 @@ return {
                     { section = "startup" },
                     -- {
                     --     section = "terminal",
-                    --     cmd = "ascii-image-converter ~/Desktop/Others/profile.png -C -c",
+                    --     cmd = "ascii-image-converter ~/Pictures/face.png -C -c",
                     --     random = 15,
                     --     pane = 2,
                     --     indent = 15,
@@ -150,12 +150,17 @@ return {
         keys = {
             { "<leader>lg", function() require("snacks").lazygit() end, desc = "Lazygit" },
             { "<leader>gl", function() require("snacks").lazygit.log() end, desc = "Lazygit Logs" },
+            { "<leader>es", function() require("snacks").explorer() end, desc = "Open Snacks Explorer" },
             { "<leader>rN", function() require("snacks").rename.rename_file() end, desc = "Fast Rename Current File" },
             { "<leader>dB", function() require("snacks").bufdelete() end, desc = "Delete or Close Buffer  (Confirm)" },
 
             -- Snacks Picker
             { "<leader>pws", function() require("snacks").picker.grep_word() end, desc = "Search Visual selection or Word", mode = { "n", "x" } },
+            -- { "<leader>ps", function() require("snacks").picker.grep() end, desc = "Grep Word" },
             { "<leader>pk", function() require("snacks").picker.keymaps({ layout = "ivy" }) end, desc = "Search Keymaps (Snacks Picker)" },
+            -- { "<leader>pf", function() require("snacks").picker.files() end, desc = "Find Files (Snacks Picker)" },
+            -- { "<leader>ff", function() require("snacks").picker.files() end, desc = "Find Files (Snacks Picker)" },
+            -- { "<leader>pc", function() require("snacks").picker.files({ cwd = vim.fn.stdpath("config") }) end, desc = "Find Config Files" },
 
             -- Git Stuff
             { "<leader>gbr", function() require("snacks").picker.git_branches({ layout = "select" }) end, desc = "Pick and Switch Git Branches" },
@@ -169,10 +174,10 @@ return {
     {
         "folke/todo-comments.nvim",
         event = { "BufReadPre", "BufNewFile" },
-        optional = true,
+        -- optional = true,
         keys = {
             { "<leader>pt", function() require("snacks").picker.todo_comments() end, desc = "All" },
-            { "<leader>pT", function() require("snacks").picker.todo_comments({ keywords = { "TODO","FORGETNOT","FIXME" } }) end, desc = "mains" },
+            { "<leader>pT", function() require("snacks").picker.todo_comments({ keywords = { "BUG", "TODO", "FIX", "FIXME" } }) end, desc = "mains" },
         },
     }
 }

@@ -3,7 +3,7 @@ local opts = { noremap = true, silent = true }
 vim.g.mapleader = " "
 
 -- N: enter netrw file manager: (<space> + cd)
-vim.keymap.set("n", "<leader>cd", vim.cmd.Ex)
+-- vim.keymap.set("n", "<leader>cd", vim.cmd.Ex)
 
 
 -- V: move selected lines up and down: (J/K)
