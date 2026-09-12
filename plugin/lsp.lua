@@ -115,6 +115,23 @@ vim.lsp.config['cssls'] = {
     },
 }
 
+vim.lsp.config['emmet_language_server'] = {
+    cmd = { 'emmet-language-server', '--stdio' },
+    filetypes = {
+        'html',
+        'css',
+        'scss',
+        'less',
+        'javascriptreact',
+        'typescriptreact',
+        'svelte',
+        'vue',
+        'astro',
+    },
+    root_markers = { 'package.json', '.git' },
+    capabilities = caps,
+}
+
 vim.lsp.config['phpls'] = {
     cmd = { 'intelephense', '--stdio' },
     filetypes = { 'php' },

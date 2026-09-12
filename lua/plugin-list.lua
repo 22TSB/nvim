@@ -14,4 +14,10 @@ return {
     "mbbill/undotree",
     "ojroques/vim-oscyank",
     "captbaritone/better-indent-support-for-php-with-html",
+
+    "stevearc/oil.nvim",
+    "windwp/nvim-autopairs",
+    "olrtg/nvim-emmet",
+    "echasnovski/mini.nvim",
+    "folke/snacks.nvim",
 }
