@@ -20,4 +20,10 @@ return {
     "olrtg/nvim-emmet",
     "echasnovski/mini.nvim",
     "folke/snacks.nvim",
+    "brianhuster/live-preview.nvim",
+
+    "mfussenegger/nvim-dap",
+    "theHamsta/nvim-dap-virtual-text",
+    "nvim-neotest/nvim-nio",
+    "rcarriga/nvim-dap-ui",
 }
