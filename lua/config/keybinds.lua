@@ -113,7 +113,7 @@ vim.keymap.set("n", "<leader>`", ":<C-u>term<CR>i", opts)
 
 
 -- V: copy to clipboard: (<space> + y)
-vim.keymap.set("v", "<leader>y", '"+y', opts)
+-- vim.keymap.set("v", "<leader>y", '"+y', opts)
 
 
 -- I: auto-closing brackets and quotes
